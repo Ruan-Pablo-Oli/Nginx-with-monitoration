@@ -18,9 +18,6 @@ cd ~
 aws s3 cp s3://mfp-bucket-ruan/monitoramento.sh /usr/local/bin/monitoramento.sh
 chmod 755 /usr/local/bin/monitoramento.sh
 
-aws s3 cp s3://mfp-bucket-ruan/environment /etc/environment
-chmod 644 /etc/environment
-chown root:root /etc/environment
 
 aws s3 cp s3://mfp-bucket-ruan/index.html /var/www/html/index.html
 chmod 644 /var/www/html/index.html
@@ -31,7 +28,7 @@ chmod 644 /var/www/html/styles.css
 
 # Configurar environment variables
 
-WEBHOOK_URL = $(aws secretsmanager get-secret-value  --secret-id discord/webhook-api --query 'SecretString' --output text | jq -r '.webhook')
+WEBHOOK_URL=$(aws secretsmanager get-secret-value  --secret-id discord/webhook-api --query 'SecretString' --output text | jq -r '.webhook')
 
 touch /etc/environment
 echo "WEBHOOK_URL=\"$WEBHOOK_URL\"" >> /etc/environment
