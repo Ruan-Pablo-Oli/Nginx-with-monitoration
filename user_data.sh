@@ -4,7 +4,7 @@ set -e
 
 # Instalar NGINX e utilitários necessários
 apt update -y
-apt install -y nginx unzip curl
+apt install -y nginx unzip curl jq
 
 # Instalar AWS CLI v2 via ZIP
 cd /tmp
@@ -29,6 +29,13 @@ aws s3 cp s3://mfp-bucket-ruan/styles.css /var/www/html/styles.css
 chmod 644 /var/www/html/styles.css
 
 
+# Configurar environment variables
+
+WEBHOOK_URL = $(aws secretsmanager get-secret-value  --secret-id discord/webhook-api --query 'SecretString' --output text | jq -r '.webhook')
+
+touch /etc/environment
+echo "WEBHOOK_URL=\"$WEBHOOK_URL\"" >> /etc/environment
+echo 'SITE_URL="127.0.0.1"' >> /etc/environment
 
 
 # Configurar NGINX para sempre reiniciar automaticamente
