@@ -22,6 +22,15 @@ aws s3 cp s3://mfp-bucket-ruan/environment /etc/environment
 chmod 644 /etc/environment
 chown root:root /etc/environment
 
+aws s3 cp s3://mfp-bucket-ruan/index.html /var/www/html/index.html
+chmod 644 /var/www/html/index.html
+
+aws s3 cp s3://mfp-bucket-ruan/styles.css /var/www/html/styles.css
+chmod 644 /var/www/html/styles.css
+
+
+
+
 # Configurar NGINX para sempre reiniciar automaticamente
 mkdir -p /etc/systemd/system/nginx.service.d
 cat >/etc/systemd/system/nginx.service.d/override.conf <<EOF
