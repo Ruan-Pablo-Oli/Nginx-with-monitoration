@@ -28,7 +28,7 @@ ENV_FILE="/etc/environment"
 LOGFILE="/var/log/monitoramento_logs.txt"
 
 touch "$LOGFILE"
-chmod 0640 "$LOGFILE"
+chmod 640 "$LOGFILE"
 
 exec >>"$LOGFILE" 2>&1
 
@@ -42,7 +42,7 @@ notify_discord() {
   local content="$1"
   curl -sS -H "Content-Type: application/json" \
        -d "$(printf '{"content":"%s"}' "$content")" \
-       "$WEBHOOK_URL" >>"$LOGFILE" 2>&1 || true
+       "$WEBHOOK_URL" || true
 }
 
 
@@ -52,7 +52,7 @@ notify_discord() {
 source "$ENV_FILE"
 
 exec 9>"/var/lock/monitoramento.lock" || exit 1
-flock -n 9 || exit 0
+  flock -n 9 || exit 0
 
 # Testa se o site responde com HTTP 200
 HTTP_CODE=$(curl -o /dev/null -s -w "%{http_code}" --max-time 10 "$SITE_URL" || echo "000")
@@ -64,4 +64,3 @@ if [[ "$HTTP_CODE" != "200" ]]; then
 else
   log "Site $SITE_URL OK (HTTP 200)."
 fi
-[ ! -e "$ENV_FILE" ] && echo "ERROR." 

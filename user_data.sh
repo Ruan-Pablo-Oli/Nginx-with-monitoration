@@ -14,21 +14,25 @@ sudo ./aws/install
 export PATH=$PATH:/usr/local/bin
 cd ~
 
+
+NOME_BUCKET="COLOQUE_AQUI_O_NOME_DO_BUCKET"
+NOME_WEBHOOK="COLOQUE_AQUI_O_NOME_DO_WEBHOOK"
+
 # Baixar arquivos do S3
-aws s3 cp s3://mfp-bucket-ruan/monitoramento.sh /usr/local/bin/monitoramento.sh
+aws s3 cp s3://$NOME_BUCKET/monitoramento.sh /usr/local/bin/monitoramento.sh # Mude aqui o nome do bucket
 chmod 755 /usr/local/bin/monitoramento.sh
 
 
-aws s3 cp s3://mfp-bucket-ruan/index.html /var/www/html/index.html
+aws s3 cp s3://$NOME_BUCKET/index.html /var/www/html/index.html # Mude aqui o nome do bucket
 chmod 644 /var/www/html/index.html
 
-aws s3 cp s3://mfp-bucket-ruan/styles.css /var/www/html/styles.css
+aws s3 cp s3://$NOME_BUCKET/styles.css /var/www/html/styles.css # Mude aqui o nome do bucket
 chmod 644 /var/www/html/styles.css
 
 
 # Configurar environment variables
 
-WEBHOOK_URL=$(aws secretsmanager get-secret-value  --secret-id discord/webhook-api --query 'SecretString' --output text | jq -r '.webhook')
+WEBHOOK_URL=$(aws secretsmanager get-secret-value  --secret-id $NOME_WEBHOOK --query 'SecretString' --output text | jq -r '.webhook')
 
 touch /etc/environment
 echo "WEBHOOK_URL=\"$WEBHOOK_URL\"" >> /etc/environment
