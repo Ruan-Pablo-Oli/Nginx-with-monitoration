@@ -505,10 +505,21 @@ echo "0 0 * * * > /var/log/monitoramento_logs.txt"
 
 ## 💡 Como Usar
 
-- Acesse o IP público da instância para visualizar o status do monitoramento
-- Consulte os logs em `/var/log/monitoramento_logs.txt`
+### 🌐 **Acesso ao Sistema**
+- Acesse o IP público da instância via navegador para visualizar o status do monitoramento
+- Consulte os logs em `/var/log/monitoramento_logs.txt` via SSH
 - As notificações serão enviadas automaticamente para o Discord configurado
-- **LEMBRE-SE, NO SECURITY GROUP APENAS SEU IP FOI PERMITIDO PARA ACESSAR A INSTÂNCIA.**
-- **APENAS SUA MÁQUINA PODERÁ ACESSAR O WEB SERVER**
+
+### 🔐 **Considerações de Acesso**
+⚠️ **Importante**: 
+- No Security Group foi configurado acesso apenas para "My IP"
+- Apenas sua máquina poderá acessar o servidor web
+- Para permitir outros IPs, edite as regras do Security Group no console AWS
+
+### 📊 **Monitoramento**
+- O script executa verificações a cada minuto
+- Logs são rotacionados automaticamente à meia-noite
+- Notificações são enviadas apenas quando há problemas detectados
+
 ---
 
