@@ -463,7 +463,8 @@ echo "0 0 * * * > /var/log/monitoramento_logs.txt"
    <img src="assets/nginx.png" width="500" />
 
    #### **Crontab**
-      - Após inicar a instância com userData, as tarefas foram agendadas no crontab. É possível ver isso com o comando 
+      - Após inicar a instância com userData, as tarefas foram agendadas no crontab. É possível ver isso com o comando:
+
       ```bash
          sudo crontab -l
       ```
@@ -481,6 +482,7 @@ echo "0 0 * * * > /var/log/monitoramento_logs.txt"
 
    ### **Webhook Discord**
    - Para testar o webhook, pare o serviço do nginx com o comando abaixo e espera 1 minuto ou execute o script de monitoramento manualmente
+   
    ```bash
       sudo systemctl stop nginx
       sudo /usr/local/bin/.monitoramento.sh
