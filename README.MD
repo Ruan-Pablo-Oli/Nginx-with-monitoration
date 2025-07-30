@@ -508,6 +508,7 @@ echo "0 0 * * * > /var/log/monitoramento_logs.txt"
 - Acesse o IP público da instância para visualizar o status do monitoramento
 - Consulte os logs em `/var/log/monitoramento_logs.txt`
 - As notificações serão enviadas automaticamente para o Discord configurado
-
+- **LEMBRE-SE, NO SECURITY GROUP APENAS SEU IP FOI PERMITIDO PARA ACESSAR A INSTÂNCIA.**
+- **APENAS SUA MÁQUINA PODERÁ ACESSAR O WEB SERVER**
 ---
 
